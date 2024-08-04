@@ -1,26 +1,52 @@
 <!DOCTYPE html>
 <html>
-    <body>
-        <form action ="/submit" method="post"
+<head>
+    <title>Form Submission</title>
+    <script>
+        function displayData(event) {
+            event.preventDefault(); // Prevent form submission
+            const form = event.target;
+            
+            const fname = form.fname.value;
+            const description = form.description.value;
+            const gender = form.gender.value;
+            const interests = Array.from(form.interests)
+                .filter(input => input.checked)
+                .map(input => input.value);
+
+            document.getElementById('display').innerHTML = `
+                <h2>Entered Data:</h2>
+                <p><strong>First name:</strong> ${fname}</p>
+                <p><strong>Description:</strong> ${description}</p>
+                <p><strong>Gender:</strong> ${gender}</p>
+                <p><strong>Interests:</strong> ${interests.join(', ')}</p>
+            `;
+        }
+    </script>
+</head>
+<body>
+    <form onsubmit="displayData(event)">
         <label for="fname">First name:</label><br>
         <input type="text" id="fname" name="fname"><br><br>
 
-        <label for="description"Descripition:</label><br>
+        <label for="description">Description:</label><br>
         <textarea id="description" name="description"></textarea><br><br>
 
         <label for="gender">Gender:</label><br>
         <input type="radio" id="male" name="gender" value="male">
         <label for="male">Male</label><br>
-        <input type="radio" id="female" name="gender" value="female"
-        <label for="Female">Female</label><br><br>
+        <input type="radio" id="female" name="gender" value="female">
+        <label for="female">Female</label><br><br>
 
         <label for="interest">Interests:</label><br>
         <input type="checkbox" id="text" name="interests" value="text">
-        <label for="TEXT">text</label><br>
-        <input type="checkbox" id="video call" name="interest" value="video call"
-        <label for="video call">video call</label><br><br>
+        <label for="text">Text</label><br>
+        <input type="checkbox" id="video call" name="interests" value="video call">
+        <label for="video call">Video Call</label><br><br>
 
-        <input type="submit" value="submit">
-        </form>  
-    </body>
+        <input type="submit" value="Submit">
+    </form>  
+
+    <div id="display"></div>
+</body>
 </html>
